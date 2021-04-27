@@ -1,33 +1,24 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
-import { useState } from 'react'
+import React, { Component } from 'react'
+import { View } from 'react-native'
+import { CardIOView, CardIOUtilities } from 'react-native-awesome-card-io'
 
-export default function App() {
+export default class CardIOExample extends Component {
 
-  const [ color, setColor ] = useState('green')
+  componentWillMount() {
+    CardIOUtilities.preload()
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Click to Scan Card Here</Text>
-      <TouchableOpacity
-        onPress={() => alert('Hello, world!')}
-        style={{ backgroundColor: 'blue' }}>
-        <Text style={{ fontSize: 20, color: '#fff' }}>Pick a photo</Text>
-      </TouchableOpacity>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    color: 'green',
+    CardIOUtilities.DETECTION_MODE = 'IMAGE_AND_NUMBER'
   }
-});
+
+  didScanCard = card => {
+    alert('card number: ' + card.cardNumber)
+  }
+
+  render() {
+    return (
+      <View>
+        <CardIOView didScanCard={this.didScanCard} style={{ flex: 1 }} />
+      </View>
+    )
+  }
+}
