@@ -22,3 +22,5 @@ export default class CardIOExample extends Component {
     )
   }
 }
+
+// https://github.com/Kerumen/react-native-awesome-card-io
